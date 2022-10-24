@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <title>Log in</title>
+</head>
+<body>
+    <div class="login-form">    
+        <h1>Signup Form</h1>
+        <h4 class="text-danger">{{ error }}</h4>
+        <form action="{% url 'signuppage' %}" method="post">
+            {% csrf_token %}
+            <p> User Name</p>
+            <input type="text" name="username" placeholder="User Name" required>
+            <p>Email</p>
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <p>Password</p>
+            <input type="password" name="userPassword" placeholder="Password" required>
+            <p>Confirm Password</p>
+            <input type="password" name="userConfirmPassword" placeholder="Confirm Password" required>
+            <p1>Already have an accout? Log in <a href="{% url 'loginpage' %}"> here</a></p1>
+            <button type="submit">Sign up</button>
+        </form>
+
+
+    </div>
+</body>
+</html>

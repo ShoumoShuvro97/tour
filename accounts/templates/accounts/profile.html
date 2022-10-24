@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Booking</title>
+    <link rel="stylesheet" href="{% static 'styles1.css' %}" />
+  </head>
+  <body>
+    <div>
+
+        <p><a href="{% url 'homepage' %}">
+            
+            <img src="{% static 'logo.png' %}" alt="Aamar Tours" >
+            </a></p>
+    </div>
+    <h2 align="center" style="padding-top: 10px; color:blue">{{ user.username }}</h2>
+    <section class="package" id="package">
+        <div class="container">
+  
+          {% if places %}
+          <h2 class="h2 section-title">My Selected Packages</h2>
+          <ul class="package-list">
+          {% for p in places.all %}
+            {% if p.is_visit %}
+            <h1>Visited : Yes</h1>
+            {% else %}
+            <h1>Visited : No</h1>
+            {% endif %}
+
+            {% if p.approved == 0 %}
+            <h1>Status : Processing</h1>
+            {% elif p.approved == 1 %}
+            <h1>Status : Approved</h1>
+            {% else %}
+            <h1>Status : Rejected</h1>
+            {% endif %}
+            <li>
+              <div class="package-card">
+                  
+                <figure class="card-banner">
+                  <img src="{{ p.package.image.url }}" alt="Experience The Great Holiday On Beach">
+                </figure>
+  
+                <div class="card-content">
+  
+                  <h3 class="h3 card-title">{{p.package.title}}</h3>
+  
+                  <p class="card-text">
+                    {{p.package.describtion}}
+                  </p>
+  
+                  <ul class="card-meta-list">
+  
+                    <li class="card-meta-item">
+                      <div class="meta-box">
+                        <ion-icon name="time"></ion-icon>
+  
+                        <p class="text">{{p.package.duration}}</p>
+                      </div>
+                    </li>
+  
+                    <li class="card-meta-item">
+                      <div class="meta-box">
+                        <ion-icon name="people"></ion-icon>
+  
+                        <p class="text">pax: {{p.package.numberOfPeople}}</p>
+                      </div>
+                    </li>
+  
+                    <li class="card-meta-item">
+                      <div class="meta-box">
+                        <ion-icon name="location"></ion-icon>
+  
+                        <p class="text">{{p.package.country}}</p>
+                      </div>
+                    </li>
+  
+                  </ul>
+  
+                </div>
+  
+                <div class="card-price">
+  
+                  <p class="price">
+                    {{p.package.cost}}/=
+                    <span>/ per person</span>
+                  </p>
+  
+                </div>
+  
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <h1 align="center" style="padding-top: 10px; color:rgb(186, 14, 31)">No selected package</h1>
+          {% endif %}
+  
+        </div>
+      </section> 
+
+
+    <script src="{% static 'booking.js' %}"></script>
+  </body>
+</html>

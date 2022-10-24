@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Booking</title>
+    <link rel="stylesheet" href="{% static 'styles1.css' %}" />
+  </head>
+  <body>
+    
+    <div >
+
+        <p><a href="{% url 'homepage' %}">
+            
+            <img src="{% static 'logo.png' %}" alt="Aamar Tours" >
+            </a></p>
+    </div>
+    
+  
+          <section class="package" id="package">
+            <div class="container">
+      
+              {% if places %}
+              <p class="section-subtitle">Popular Packeges</p>
+              <h2 class="h2 section-title">Checkout Our Packeges</h2>
+              <ul class="package-list">
+                {% for p in places.all %}
+                <li>
+                  <div class="package-card">
+      
+                    <figure class="card-banner">
+                      <img src="{{ p.image.url }}" alt="Experience The Great Holiday On Beach" loading="lazy">
+                    </figure>
+      
+                    <div class="card-content">
+      
+                      <h3 class="h3 card-title">{{p.title}}</h3>
+      
+                      <p class="card-text">
+                        {{p.describtion}}
+                      </p>
+      
+                      <ul class="card-meta-list">
+      
+                        <li class="card-meta-item">
+                          <div class="meta-box">
+                            <ion-icon name="time"></ion-icon>
+      
+                            <p class="text">{{p.duration}}</p>
+                          </div>
+                        </li>
+      
+                        <li class="card-meta-item">
+                          <div class="meta-box">
+                            <ion-icon name="people"></ion-icon>
+      
+                            <p class="text">pax: {{p.numberOfPeople}}</p>
+                          </div>
+                        </li>
+      
+                        <li class="card-meta-item">
+                          <div class="meta-box">
+                            <ion-icon name="location"></ion-icon>
+      
+                            <p class="text">{{p.country}}</p>
+                          </div>
+                        </li>
+      
+                      </ul>
+      
+                    </div>
+      
+                    <div class="card-price">
+      
+                      <p class="price">
+                        {{p.cost}}/=
+                        <span>/ per person</span>
+                      </p>
+                      <form id="book" action="{% url 'bookpage' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value={{p.id}}>
+                      <button class="btn btn-secondary" href="javascript:{document.getElementById('book').submit()}" onclick="">Book Now</button>
+                    </form>
+                    </div>
+      
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <h1 align="center" style="padding-top: 10px; color:rgb(186, 14, 31)">No selected package</h1>
+              {% endif %}
+      
+            </div>
+          </section>
+      
+
+    <script src="{% static 'booking.js' %}"></script>
+  </body>
+</html>
